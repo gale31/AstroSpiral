@@ -321,30 +321,14 @@ void MakeSpiral()
     swap(points[0], points[maxind]);
     
     spiral.push_back(points[0]);
-        
-    sort(points.begin()+1, points.end(), cmp);
-    points.push_back(points[0]);
     
-    int k=2;
-    for(int i=3; i<points.size(); i++)
-    {
-        while(det(points[k], points[k-1], points[i])>0) k--;
-        k++;
-        swap(points[i], points[k]);
-    }
-    
-    for(int i=1; i<k; i++) spiral.push_back(points[i]);
-    
-    points.erase(points.begin(), points.begin()+(k-1));
-    points.erase(points.begin()+1, points.begin()+2);
-    
-    /*for(; ;)
+    for(; ;)
     {
         if(points.size()==1) break;
         
         sort(points.begin()+1, points.end(), cmp);
         points.push_back(points[0]);
-        
+
         int k=2;
         for(int i=3; i<points.size(); i++)
         {
@@ -357,7 +341,7 @@ void MakeSpiral()
         
         points.erase(points.begin(), points.begin()+(k-1));
         points.erase(points.begin()+1, points.begin()+2);
-    }*/
+    }
 }
 
 

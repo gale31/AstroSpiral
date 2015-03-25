@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BE1714ED-279D-4F33-A8D9-C8E4D714DD66</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ConvexSpiral</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BB0D3FEC5D32D3A552EB5266E192A96F6A4B7CAE</key>
+		<string>https://github.com/gale31/AstroSpiral.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ConvexSpiral/xcode/ConvexSpiral.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BB0D3FEC5D32D3A552EB5266E192A96F6A4B7CAE</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/gale31/AstroSpiral.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BB0D3FEC5D32D3A552EB5266E192A96F6A4B7CAE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BB0D3FEC5D32D3A552EB5266E192A96F6A4B7CAE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AstroSpiral</string>
+		</dict>
+	</array>
+</dict>
+</plist>
