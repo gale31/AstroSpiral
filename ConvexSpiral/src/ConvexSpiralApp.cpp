@@ -305,8 +305,6 @@ Surface processImage2( const Surface input )
         MakeLine(&resultSurface, Area (input.getWidth(), input.getHeight(), 0, 0), spiral[i].x, spiral[i].y, spiral[i+1].x, spiral[i+1].y);
     }
     
-    MakeLine(&resultSurface, Area (input.getWidth(), input.getHeight(), 0, 0), 0, 0, 10, 15);
-    
     return resultSurface;
 }
 
@@ -325,6 +323,22 @@ void MakeSpiral()
     for(; ;)
     {
         if(points.size()==1) break;
+        if(points.size()==3)
+        {
+            if(det(points[0], points[1], points[2])>=0)
+            {
+                spiral.push_back(points[0]);
+                spiral.push_back(points[1]);
+                spiral.push_back(points[2]);
+            }
+            else if(det(points[0], points[2], points[1])>=0)
+            {
+                spiral.push_back(points[0]);
+                spiral.push_back(points[2]);
+                spiral.push_back(points[1]);
+            }
+            break;
+        }
         
         sort(points.begin()+1, points.end(), cmp);
         points.push_back(points[0]);
