@@ -29,7 +29,7 @@ class ConvexSpiralApp : public AppBasic {
 typedef struct
 {
     int x, y;
-    int number;
+    int numgf;
 } point;
 
 vector <point> points;
@@ -46,6 +46,19 @@ int det(point a, point b, point c)
     int dxb = b.x-c.x, dyb = c.y-b.y;
     
     return (dxa*dyb - dxb*dya);
+}
+
+bool used[1024]={0};
+
+void dfs(int v)
+{
+    cout<<v+1;
+    used[v]=1;
+    
+    for(int i=0; i<n; i++)
+    {
+        if(gr[v][i]!=0 && !used[i]) dfs(i);
+    }
 }
 
 Surface::Iter TurnBinary( Surface *surface, Area area )
@@ -75,7 +88,7 @@ Surface::Iter TurnBinary( Surface *surface, Area area )
     return iter;
 }
 
-int num=0;
+int gf[1024][1024]={0}, num=0;
 
 void TurnPixel( Surface *surface, Area area )
 {
@@ -87,18 +100,15 @@ void TurnPixel( Surface *surface, Area area )
         {
             point tmppoint;
             tmppoint.x=iter.x(); tmppoint.y=iter.y();
-            tmppoint.number=num+1;
+            tmppoint.numgf=-1;
             
             if(iter.r()==255 && iter.g()==255 && iter.b()==255)
             {
+                tmppoint.numgf=num+1;
+                num++;
+                
                 if(iter.x()==0 && iter.y()==0)
                 {
-                    iter.r() = 15;
-                    iter.g() = 210;
-                    iter.b() = 100;
-                
-                    num++;
-                    
                     points.push_back(tmppoint);
                 }
                 
@@ -107,15 +117,14 @@ void TurnPixel( Surface *surface, Area area )
                     int prevx=-1;
                     int prevy=0;
                     
-                    if(iter.r(prevx, prevy)==0 && iter.g(prevx, prevy)==0 && iter.b(prevx, prevy)==0)
+                    point prevpoint;
+                    prevpoint.x=iter.x()+prevx; prevpoint.y=iter.y()+prevy;
+                    //prevpoint.nymgf=???;
+                    
+                    if(iter.r(prevx, prevy)==255 && iter.g(prevx, prevy)==255 && iter.b(prevx, prevy)==255)
                     {
-                        iter.r() = 15;
-                        iter.g() = 210;
-                        iter.b() = 100;
-
-                        num++;
-                        
-                        points.push_back(tmppoint);
+                        gf[tmppoint.numgf][prevpoint.numgf]=1;
+                        gf[prevpoint.numgf][tmppoint.numgf]=1;
                     }
                 }
                 
@@ -124,16 +133,16 @@ void TurnPixel( Surface *surface, Area area )
                     int upx=0;
                     int upy=-1;
                     
-                    if(iter.r(upx, upy)==0 && iter.g(upx, upy)==0 && iter.b(upx, upy)==0)
+                    point uppoint;
+                    uppoint.x=iter.x()+upx; uppoint.y=iter.y()+upy;
+                    //uppoint.nymgf=???;
+                    
+                    if(iter.r(upx, upy)==255 && iter.g(upx, upy)==255 && iter.b(upx, upy)==255)
                     {
-                        iter.r() = 15;
-                        iter.g() = 210;
-                        iter.b() = 100;
-                        
-                        num++;
-                        
-                        points.push_back(tmppoint);
+                        gf[tmppoint.numgf][uppoint.numgf]=1;
+                        gf[uppoint.numgf][tmppoint.numgf]=1;
                     }
+                    
                 }
                 
                 else if(iter.x()==iter.getWidth())
@@ -153,8 +162,29 @@ void TurnPixel( Surface *surface, Area area )
                         num++;
                         
                         points.push_back(tmppoint);
+                    }
+                    
+                    else
+                    {
+                        point uppoint;
+                        uppoint.x=iter.x()+upx; uppoint.y=iter.y()+upy;
+                        //uppoint.nymgf=???;
                         
+                        point prevpoint;
+                        prevpoint.x=iter.x()+prevx; prevpoint.y=iter.y()+prevy;
+                        //prevpoint.nymgf=???;
                         
+                        if(iter.r(upx, upy)==255 && iter.g(upx, upy)==255 && iter.b(upx, upy)==255)
+                        {
+                            gf[tmppoint.numgf][uppoint.numgf]=1;
+                            gf[uppoint.numgf][tmppoint.numgf]=1;
+                        }
+                        
+                        if(iter.r(prevx, prevy)==255 && iter.g(prevx, prevy)==255 && iter.b(prevx, prevy)==255)
+                        {
+                            gf[tmppoint.numgf][prevpoint.numgf]=1;
+                            gf[prevpoint.numgf][tmppoint.numgf]=1;
+                        }
                     }
                 }
                 
@@ -163,22 +193,27 @@ void TurnPixel( Surface *surface, Area area )
                     int upx=0;
                     int upy=-1;
                     
+                    point uppoint;
+                    uppoint.x=iter.x()+upx; uppoint.y=iter.y()+upy;
+                    //uppoint.nymgf=???;
+                    
                     int prevx=-1;
                     int prevy=0;
                     
-                    int up2x=1;
-                    int up2y=-1;
+                    point prevpoint;
+                    prevpoint.x=iter.x()+prevx; prevpoint.y=iter.y()+prevy;
+                    //prevpoint.nymgf=???;
                     
-                    if((iter.r(upx, upy)==0 && iter.g(upx, upy)==0 && iter.b(upx, upy)==0) && (iter.r(prevx, prevy)==0 && iter.g(prevx, prevy)==0 && iter.b(prevx, prevy)==0) && (iter.r(up2x, up2y)==0 && iter.g(up2x, up2y)==0 && iter.b(up2x, up2y)==0))
+                    if(iter.r(upx, upy)==255 && iter.g(upx, upy)==255 && iter.b(upx, upy)==255)
                     {
-                        iter.r() = 15;
-                        iter.g() = 210;
-                        iter.b() = 100;
-                        
-                        num++;
-                        
-                        points.push_back(tmppoint);
-                        
+                        gf[tmppoint.numgf][uppoint.numgf]=1;
+                        gf[uppoint.numgf][tmppoint.numgf]=1;
+                    }
+                    
+                    if(iter.r(prevx, prevy)==255 && iter.g(prevx, prevy)==255 && iter.b(prevx, prevy)==255)
+                    {
+                        gf[tmppoint.numgf][prevpoint.numgf]=1;
+                        gf[prevpoint.numgf][tmppoint.numgf]=1;
                     }
                 }
             }
