@@ -362,7 +362,7 @@ void MakeSpiral()
 void ConvexSpiralApp::mouseDown( MouseEvent event )
 {
     // pull down the current window as a surface and pass it to writeImage
-    writeImage( getHomeDirectory() / "Desktop"/"project"/"ConvexSpiral" / "results" / "result.png", copyWindowSurface() );
+    writeImage( getHomeDirectory() /"Documents"/"AstroSpiral"/ "IMG" / "RESULT.png", copyWindowSurface() );
 }
 
 void ConvexSpiralApp::setup()
@@ -382,8 +382,6 @@ void ConvexSpiralApp::setup()
             
             Surface processedImage2( processImage2( loadImage( img ) ) );
             myImage = gl::Texture( processedImage2 );
-            
-            cout<<num<<endl;
         }
     }
     
