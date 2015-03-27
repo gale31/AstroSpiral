@@ -33,6 +33,7 @@ typedef struct
 } point;
 
 vector <point> points;
+vector <point> wpoints; // white points
 vector<point> spiral;
 
 bool cmp(point a, point b)
@@ -49,15 +50,15 @@ int det(point a, point b, point c)
 }
 
 bool used[1024]={0};
+int gf[1024][1024]={0}, num=0;
 
-void dfs(int v)
+void DFS(int v)
 {
-    cout<<v+1;
     used[v]=1;
     
-    for(int i=0; i<n; i++)
+    for(int i=0; i<num; i++)
     {
-        if(gr[v][i]!=0 && !used[i]) dfs(i);
+        if(gf[v][i]!=0 && !used[i]) DFS(i);
     }
 }
 
@@ -88,8 +89,6 @@ Surface::Iter TurnBinary( Surface *surface, Area area )
     return iter;
 }
 
-int gf[1024][1024]={0}, num=0;
-
 void TurnPixel( Surface *surface, Area area )
 {
     Surface::Iter iter = surface->getIter( area );
@@ -109,17 +108,21 @@ void TurnPixel( Surface *surface, Area area )
                 
                 if(iter.x()==0 && iter.y()==0)
                 {
-                    points.push_back(tmppoint);
+                    wpoints.push_back(tmppoint);
                 }
                 
                 else if(iter.y()==0)
                 {
+                    wpoints.push_back(tmppoint);
+                    
                     int prevx=-1;
                     int prevy=0;
                     
                     point prevpoint;
                     prevpoint.x=iter.x()+prevx; prevpoint.y=iter.y()+prevy;
-                    //prevpoint.nymgf=???;
+                    
+                    for(int i=0; i<points.size(); i++)
+                        if(wpoints[i].x==prevpoint.x && wpoints[i].y==prevpoint.y) prevpoint.numgf=wpoints[i].numgf;
                     
                     if(iter.r(prevx, prevy)==255 && iter.g(prevx, prevy)==255 && iter.b(prevx, prevy)==255)
                     {
@@ -130,12 +133,16 @@ void TurnPixel( Surface *surface, Area area )
                 
                 else if(iter.x()==0)
                 {
+                    wpoints.push_back(tmppoint);
+                    
                     int upx=0;
                     int upy=-1;
                     
                     point uppoint;
                     uppoint.x=iter.x()+upx; uppoint.y=iter.y()+upy;
-                    //uppoint.nymgf=???;
+                    
+                    for(int i=0; i<points.size(); i++)
+                        if(points[i].x==uppoint.x && points[i].y==uppoint.y) uppoint.numgf=points[i].numgf;
                     
                     if(iter.r(upx, upy)==255 && iter.g(upx, upy)==255 && iter.b(upx, upy)==255)
                     {
@@ -147,6 +154,8 @@ void TurnPixel( Surface *surface, Area area )
                 
                 else if(iter.x()==iter.getWidth())
                 {
+                    wpoints.push_back(tmppoint);
+                    
                     int prevx=-1;
                     int prevy=0;
                     
@@ -160,19 +169,21 @@ void TurnPixel( Surface *surface, Area area )
                         iter.b() = 100;
                         
                         num++;
-                        
-                        points.push_back(tmppoint);
                     }
                     
                     else
                     {
                         point uppoint;
                         uppoint.x=iter.x()+upx; uppoint.y=iter.y()+upy;
-                        //uppoint.nymgf=???;
                         
                         point prevpoint;
                         prevpoint.x=iter.x()+prevx; prevpoint.y=iter.y()+prevy;
-                        //prevpoint.nymgf=???;
+                        
+                        for(int i=0; i<wpoints.size(); i++)
+                        {
+                            if(wpoints[i].x==uppoint.x && wpoints[i].y==uppoint.y) uppoint.numgf=wpoints[i].numgf;
+                            if(wpoints[i].x==prevpoint.x && wpoints[i].y==prevpoint.y) prevpoint.numgf=wpoints[i].numgf;
+                        }
                         
                         if(iter.r(upx, upy)==255 && iter.g(upx, upy)==255 && iter.b(upx, upy)==255)
                         {
@@ -190,19 +201,25 @@ void TurnPixel( Surface *surface, Area area )
                 
                 else
                 {
+                    wpoints.push_back(tmppoint);
+                    
                     int upx=0;
                     int upy=-1;
                     
                     point uppoint;
                     uppoint.x=iter.x()+upx; uppoint.y=iter.y()+upy;
-                    //uppoint.nymgf=???;
                     
                     int prevx=-1;
                     int prevy=0;
                     
                     point prevpoint;
                     prevpoint.x=iter.x()+prevx; prevpoint.y=iter.y()+prevy;
-                    //prevpoint.nymgf=???;
+                    
+                    for(int i=0; i<wpoints.size(); i++)
+                    {
+                        if(wpoints[i].x==uppoint.x && wpoints[i].y==uppoint.y) uppoint.numgf=wpoints[i].numgf;
+                        if(wpoints[i].x==prevpoint.x && wpoints[i].y==prevpoint.y) prevpoint.numgf=wpoints[i].numgf;
+                    }
                     
                     if(iter.r(upx, upy)==255 && iter.g(upx, upy)==255 && iter.b(upx, upy)==255)
                     {
@@ -326,6 +343,15 @@ Surface processImage( const Surface input )
     
     TurnBinary( &resultSurface, Area (input.getWidth(), input.getHeight(), 0 , 0));
     TurnPixel( &resultSurface, Area (input.getWidth(), input.getHeight(), 0 , 0));
+    
+    for(int i=0; i<wpoints.size(); i++)
+    {
+        if(!used[wpoints[i].numgf])
+        {
+            DFS(wpoints[i].numgf);
+            points.push_back(wpoints[i]);
+        }
+    }
     
     return resultSurface;
 }
