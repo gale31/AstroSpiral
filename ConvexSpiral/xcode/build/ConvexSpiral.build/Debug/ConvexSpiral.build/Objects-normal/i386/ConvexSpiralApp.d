@@ -6,20 +6,20 @@ dependencies: \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/lexical_cast.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/detail/lcast_precision.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/array.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/assert.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/functional/hash_fwd.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/assert.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/functional/hash_fwd.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/cast.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/converter.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/conversion_traits.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/detail/conversion_traits.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/detail/meta.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/equal_to.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/aux_/comparison_op.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/aux_/numeric_op.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/apply_wrap.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/aux_/include_preprocessed.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/preprocessor/cat.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/preprocessor/stringize.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/aux_/comparison_op.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/aux_/numeric_op.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/apply_wrap.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/aux_/include_preprocessed.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/preprocessor/cat.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/preprocessor/stringize.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/aux_/preprocessed/gcc/equal_to.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/detail/int_float_mixture.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/int_float_mixture_enum.hpp \
@@ -39,16 +39,16 @@ dependencies: \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/bounds.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/detail/bounds.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/numeric_cast_traits.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/cstdint.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/cstdint.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/detail/numeric_cast_traits.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/detail/preprocessed/numeric_cast_traits_common.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/numeric/conversion/detail/preprocessed/numeric_cast_traits_long_long.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/type_traits/has_left_shift.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/type_traits/detail/has_binary_operator.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/type_traits/is_fundamental.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/type_traits/detail/bool_trait_def.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/type_traits/detail/template_arity_spec.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/type_traits/detail/bool_trait_undef.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/type_traits/detail/bool_trait_def.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/type_traits/detail/template_arity_spec.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/type_traits/detail/bool_trait_undef.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/type_traits/has_right_shift.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/math/special_functions/sign.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/math/tools/config.hpp \
@@ -63,10 +63,10 @@ dependencies: \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/aux_/contains_impl.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/find.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/remove_if.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/apply.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/apply.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/vector.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/limits/vector.hpp \
-  /Users/Gale/Documents/AstroSpiral/ConvexSpiral/xcode/../../../../Downloads/cinder_0.8.6_mac/boost/boost/preprocessor/inc.hpp \
+  ../../../../Downloads/cinder_0.8.6_mac/boost/boost/preprocessor/inc.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/vector/vector20.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/vector/vector10.hpp \
   ../../../../Downloads/cinder_0.8.6_mac/boost/boost/mpl/vector/vector0.hpp \
