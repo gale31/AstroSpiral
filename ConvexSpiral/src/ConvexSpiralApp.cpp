@@ -322,7 +322,7 @@ void MakeSpiral()
 
 void ConvexSpiralApp::mouseDown( MouseEvent event )
 {
-    writeImage( getHomeDirectory() /"Documents"/"AstroSpiral"/ "IMG" / "RESULT.png", copyWindowSurface() );
+    writeImage( getHomeDirectory() /"Documents"/"RESULT.png", copyWindowSurface() );
 }
 
 void ConvexSpiralApp::setup()
