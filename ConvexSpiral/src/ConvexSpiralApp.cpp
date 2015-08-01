@@ -6,8 +6,8 @@
 #include "cinder/Utilities.h"
 
 #include <iostream>
-#include <stack>
 #include <vector>
+#include <set>
 #include <algorithm>
 #include <cmath>
 
@@ -57,6 +57,35 @@ int det(point a, point b, point c)
     return (dxa*dyb - dxb*dya);
 }
 
+set <int> brightness;
+
+int averageb;
+Surface::Iter AverageBrightness( Surface *surface, Area area )
+{
+    Surface::Iter iter = surface -> getIter(area);
+    
+    set <int> brightness;
+    
+    while( iter.line() )
+    {
+        while( iter.pixel() )
+        {
+            brightness.insert(iter.r());
+        }
+    }
+
+    
+    int sum=0;
+    set<int>::iterator it;
+    
+    for (it=brightness.begin(); it!=brightness.end(); it++) sum = sum + *it;
+    
+    averageb = sum / brightness.size();
+    
+    return iter;
+}
+
+
 Surface::Iter TurnBinary( Surface *surface, Area area )
 {
     Surface::Iter iter = surface->getIter( area );
@@ -65,7 +94,7 @@ Surface::Iter TurnBinary( Surface *surface, Area area )
     {
         while( iter.pixel() )
         {
-            if((iter.r()>=0 && iter.r()<=139) && (iter.g()>=0 && iter.g()<=139) && (iter.b()>=0 && iter.b()<=139))
+            if((iter.r()>=0 && iter.r()<=averageb) && (iter.g()>=0 && iter.g()<=averageb) && (iter.b()>=0 && iter.b()<=averageb))
             {
             
                 iter.r() = 0;
@@ -243,7 +272,8 @@ Surface processImage(const Surface input )
 {
 
     Surface resultSurface( input.clone() );
-
+    
+    AverageBrightness( &resultSurface, Area (input.getWidth(), input.getHeight(), 0 , 0));
     TurnBinary( &resultSurface, Area (input.getWidth(), input.getHeight(), 0 , 0));
     TurnPixel( &resultSurface, Area (input.getWidth(), input.getHeight(), 0 , 0));
     
