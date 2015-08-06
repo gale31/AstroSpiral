@@ -21,7 +21,6 @@ class ConvexSpiralApp : public AppBasic
     void setup();
     void draw();
     void main();
-    void mouseDown( MouseEvent event );
 
     gl::Texture myImage;
     gl::Texture myImage2;
@@ -270,7 +269,6 @@ void MakeLine(Surface *surface, Area area, int x1, int y1, int x2, int y2)
 
 Surface processImage(const Surface input )
 {
-
     Surface resultSurface( input.clone() );
     
     AverageBrightness( &resultSurface, Area (input.getWidth(), input.getHeight(), 0 , 0));
@@ -287,8 +285,8 @@ bool fl = 0;
 Surface processImage2( const Surface input )
 {
     Surface resultSurface( input.clone() );
-
-    for(int i=0; i<spiral.size()-1; i++)
+    
+    for(int i=0; i < spiral.size()-1; i++)
     {
         MakeLine(&resultSurface, Area (input.getWidth(), input.getHeight(), 0, 0), spiral[i].x, spiral[i].y, spiral[i+1].x, spiral[i+1].y);
         
@@ -329,70 +327,60 @@ Surface processImage2( const Surface input )
     return resultSurface;
 }
 
-//vector<point> circlefirst;
-
 void MakeSpiral()
 {
-    spiral.clear();
+     spiral.clear();
     
-    int maxind=0;
-    for(int i=1; i<points.size(); i++)
-        if(points[i].y > points[maxind].y) maxind=i;
-    for(int i=1; i<points.size(); i++)
-        if(points[i].y == points[maxind].y) if(points[i].x < points[maxind].x) maxind=i;
-    
-    swap(points[0], points[maxind]);
-    spiral.push_back(points[0]);
-    
-    for(; ;)
-    {
-        
-        if(points.size()==1) break;
-        if(points.size()==3)
-        {
-            if(det(points[0], points[1], points[2])>=0)
-            {
-                spiral.push_back(points[0]);
-                spiral.push_back(points[1]);
-                spiral.push_back(points[2]);
-            }
-            
-            else if(det(points[0], points[2], points[1])>=0)
-            {
-                spiral.push_back(points[0]);
-                spiral.push_back(points[2]);
-                spiral.push_back(points[1]);
-            }
-            
-            break;
-            
-        }
-        
-        sort(points.begin()+1, points.end(), cmp);
-        points.push_back(points[0]);
-        
-        int k=2;
-        for(int i=3; i<points.size(); i++)
-        {
-            while(det(points[k], points[k-1], points[i])>0) k--;
-            k++;
-            swap(points[i], points[k]);
-        }
-        
-        for(int i=1; i<k; i++) spiral.push_back(points[i]);
-        
-        points.erase(points.begin(), points.begin()+(k-1));
-        points.erase(points.begin()+1, points.begin()+2);
-    }
+     int maxind=0;
+     for(int i=1; i<points.size(); i++)
+     if(points[i].y > points[maxind].y) maxind=i;
+     for(int i=1; i<points.size(); i++)
+     if(points[i].y == points[maxind].y) if(points[i].x < points[maxind].x) maxind=i;
+     
+     swap(points[0], points[maxind]);
+     spiral.push_back(points[0]);
+     
+     for(; ;)
+     {
+     
+         if(points.size()==1) break;
+         if(points.size()==3)
+         {
+             if(det(points[0], points[1], points[2])>=0)
+             {
+                 spiral.push_back(points[0]);
+                 spiral.push_back(points[1]);
+                 spiral.push_back(points[2]);
+             }
+     
+             else if(det(points[0], points[2], points[1])>=0)
+             {
+                 spiral.push_back(points[0]);
+                 spiral.push_back(points[2]);
+                 spiral.push_back(points[1]);
+             }
+     
+             break;
+         }
+     
+         sort(points.begin()+1, points.end(), cmp);
+         points.push_back(points[0]);
+     
+         int k=2;
+         for(int i=3; i<points.size(); i++)
+         {
+             while(det(points[k], points[k-1], points[i])>0) k--;
+             k++;
+             swap(points[i], points[k]);
+         }
+     
+         for(int i=1; i<k; i++) spiral.push_back(points[i]);
+     
+         points.erase(points.begin(), points.begin()+(k-1));
+         points.erase(points.begin()+1, points.begin()+2);
+     
+     }
 }
-
-void ConvexSpiralApp::mouseDown( MouseEvent event )
-{
-    writeImage( getHomeDirectory() /"Documents"/"RESULT.png", copyWindowSurface() );
-}
-
-bool fld = 1;
-//vector<point> points_cpy;
 
 vector<point> mark;
 
@@ -427,7 +415,6 @@ void ConvexSpiralApp::setup()
                     newcenter.y=centery;
                     
                     points.push_back(newcenter);
-                    // points_cpy.push_back(newcenter);
                 }
             }
             
@@ -484,22 +471,20 @@ void ConvexSpiralApp::setup()
                 cout<<distances2[i]<<" ";
             cout<<endl;*/
             
-            int distsz;
+            vector<double>::iterator it;
             
-            if(distances1.size() <  distances2.size()) distsz = distances1.size();
-            else distsz = distances2.size();
-            
-            for(int i = 0; i < distsz; i++)
+            for(int i = 0; i < distances1.size(); i++)
             {
-                if(distances1[i] != distances2[i])
+                it = find (distances2.begin(), distances2.end(), distances1[i]);
+                
+                if (it == distances2.end())
                 {
                     mark.push_back(spiral[i]);
-                    break;
+                    if((i+1) < distances1.size()) mark.push_back(spiral[i+1]);
+                    else mark.push_back(spiral[i-1]);
                 }
             }
             
-            //cout<<mark[0].x << " "<< mark[0].y <<endl;
-            //cout<<"what."<<endl;
         }
         
     }
@@ -520,7 +505,6 @@ void ConvexSpiralApp::draw()
         writeImage( getHomeDirectory() /"Documents"/"AstroSpiral"/"res"/"result1.png", copyWindowSurface() );
         write1 = false;
     }
-    
     else
     {
         setWindowSize(myImage2.getWidth(), myImage2.getHeight() );
@@ -528,12 +512,8 @@ void ConvexSpiralApp::draw()
         writeImage( getHomeDirectory() /"Documents"/"AstroSpiral"/"res"/"result2.png", copyWindowSurface() );
     }
     
-    if(mark.size() > 0)
-    {
-        gl::drawStrokedCircle( Vec2f( mark[0].x, mark[0].y ), 10.0f );
-        //cout<<"yup "<<endl;
-        //mark.erase(mark.begin());
-    }
+    for(int i = 0; i < mark.size(); i++)
+        gl::drawStrokedCircle( Vec2f( mark[i].x, mark[i].y ), 10.0f );
     //drawSolidCircle( Vec2f( xf, yf ), radiusf );
 }
 
