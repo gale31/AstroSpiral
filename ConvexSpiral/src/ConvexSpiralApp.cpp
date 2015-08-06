@@ -19,12 +19,12 @@ class ConvexSpiralApp : public AppBasic
 {
     public:
     void setup();
-    void prepareSettings();
     void draw();
     void main();
     void mouseDown( MouseEvent event );
 
     gl::Texture myImage;
+    gl::Texture myImage2;
 
 };
 
@@ -133,6 +133,7 @@ void TurnPixel( Surface *surface, Area area )
                 point p;
                 
                 p.number=br;
+                
                 p.x=iter.x();
                 p.y=iter.y();
                 
@@ -183,7 +184,6 @@ void find_component(int v)
 void MakeLine(Surface *surface, Area area, int x1, int y1, int x2, int y2)
 
 {
-    
     Surface::Iter iter = surface->getIter( area );
     int x, y, dx, dy, dx1, dy1, px, py, xe, ye, i;
 
@@ -280,37 +280,73 @@ Surface processImage(const Surface input )
     return resultSurface;
 }
 
-
+vector <double> distances1;
+vector <double> distances2;
+bool fl = 0;
 
 Surface processImage2( const Surface input )
-
 {
     Surface resultSurface( input.clone() );
 
     for(int i=0; i<spiral.size()-1; i++)
     {
         MakeLine(&resultSurface, Area (input.getWidth(), input.getHeight(), 0, 0), spiral[i].x, spiral[i].y, spiral[i+1].x, spiral[i+1].y);
+        
+        double dist;
+        
+        int x1, x2, y1, y2;
+        
+        if( spiral[i].x > spiral[i+1].x )
+        {
+            x2 = spiral[i].x;
+            x1 = spiral[i+1].x;
+        }
+        else
+        {
+            x1 = spiral[i].x;
+            x2 = spiral[i+1].x;
+        }
+        
+        if( spiral[i].y > spiral[i+1].y )
+        {
+            y2 = spiral[i].y;
+            y1 = spiral[i+1].y;
+        }
+        else
+        {
+            y1 = spiral[i].y;
+            y2 = spiral[i+1].y;
+        }
+        
+        dist = sqrt( (x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));
+        
+        if(fl == 0) distances1.push_back(dist);
+        else distances2.push_back(dist);
     }
+    
+    fl = 1;
     
     return resultSurface;
 }
 
+//vector<point> circlefirst;
+
 void MakeSpiral()
 {
     spiral.clear();
-
+    
     int maxind=0;
     for(int i=1; i<points.size(); i++)
         if(points[i].y > points[maxind].y) maxind=i;
     for(int i=1; i<points.size(); i++)
         if(points[i].y == points[maxind].y) if(points[i].x < points[maxind].x) maxind=i;
-
+    
     swap(points[0], points[maxind]);
     spiral.push_back(points[0]);
-
+    
     for(; ;)
     {
-    
+        
         if(points.size()==1) break;
         if(points.size()==3)
         {
@@ -320,21 +356,21 @@ void MakeSpiral()
                 spiral.push_back(points[1]);
                 spiral.push_back(points[2]);
             }
-        
+            
             else if(det(points[0], points[2], points[1])>=0)
             {
                 spiral.push_back(points[0]);
                 spiral.push_back(points[2]);
                 spiral.push_back(points[1]);
             }
-        
+            
             break;
-        
+            
         }
-    
+        
         sort(points.begin()+1, points.end(), cmp);
         points.push_back(points[0]);
-    
+        
         int k=2;
         for(int i=3; i<points.size(); i++)
         {
@@ -342,7 +378,7 @@ void MakeSpiral()
             k++;
             swap(points[i], points[k]);
         }
-    
+        
         for(int i=1; i<k; i++) spiral.push_back(points[i]);
         
         points.erase(points.begin(), points.begin()+(k-1));
@@ -355,19 +391,22 @@ void ConvexSpiralApp::mouseDown( MouseEvent event )
     writeImage( getHomeDirectory() /"Documents"/"RESULT.png", copyWindowSurface() );
 }
 
+bool fld = 1;
+//vector<point> points_cpy;
+
+vector<point> mark;
+
 void ConvexSpiralApp::setup()
 {
     try
     {
         ci::fs::path img = getOpenFilePath( "", ImageIo::getLoadExtensions());
+        ci::fs::path img2 = getOpenFilePath( "", ImageIo::getLoadExtensions());
         
         if( ! img.empty() ) // an empty string means the user canceled
         {
             Surface processedImage( processImage( loadImage( img ) ) );
             myImage = gl::Texture( processedImage );
-        
-            setWindowSize(myImage.getWidth(), myImage.getHeight() );
-            
             
             for(int i=1; i<=br; i++)
             {
@@ -388,15 +427,81 @@ void ConvexSpiralApp::setup()
                     newcenter.y=centery;
                     
                     points.push_back(newcenter);
+                    // points_cpy.push_back(newcenter);
                 }
             }
             
             MakeSpiral();
             
-            Surface processedImage2( processImage2( loadImage( img ) ) );
-            myImage = gl::Texture( processedImage2 );
+            Surface processedImage3( processImage2( loadImage( img ) ) );
+            myImage = gl::Texture( processedImage3 );
+            
+            points.clear(); pixels.clear();
+            
+            for(int i = 0; i < 10000; i++)
+                for(int j = 0; j < 10000; j++) gr[i][j] = 0;
+            
+            for(int i = 0; i < 10000; i++) used[i] = 0;
+            
+            br = 0;
+            
+            Surface processedImage2( processImage( loadImage( img2 ) ) );
+            myImage2 = gl::Texture( processedImage2 );
+            
+            for(int i=1; i<=br; i++)
+            {
+                if(used[i]==0)
+                {
+                    maxx=-1; minx=-1; maxy=-1; miny=-1;
+                    
+                    find_component(i);
+                    
+                    cout<<endl;
+                    
+                    point newcenter;
+                    
+                    int centerx = minx+(maxx-minx)/2;
+                    int centery = miny+(maxy-miny)/2;
+                    
+                    newcenter.x=centerx;
+                    newcenter.y=centery;
+                    
+                    points.push_back(newcenter);
+                   // points_cpy.push_back(newcenter);
+                }
+            }
+            
+            MakeSpiral();
+            
+            Surface processedImage4( processImage2( loadImage( img2 ) ) );
+            myImage2 = gl::Texture( processedImage4 );
+            
+           /* for(int i = 0; i < distances1.size(); i++)
+                cout<<distances1[i]<<" ";
+            cout<<endl;
+            
+            for(int i = 0; i < distances2.size(); i++)
+                cout<<distances2[i]<<" ";
+            cout<<endl;*/
+            
+            int distsz;
+            
+            if(distances1.size() <  distances2.size()) distsz = distances1.size();
+            else distsz = distances2.size();
+            
+            for(int i = 0; i < distsz; i++)
+            {
+                if(distances1[i] != distances2[i])
+                {
+                    mark.push_back(spiral[i]);
+                    break;
+                }
+            }
+            
+            //cout<<mark[0].x << " "<< mark[0].y <<endl;
+            //cout<<"what."<<endl;
         }
-    
+        
     }
 
     catch( ... )
@@ -405,9 +510,31 @@ void ConvexSpiralApp::setup()
     }
 }
 
+bool write1 = true;
 void ConvexSpiralApp::draw()
 {
-    gl::draw( myImage, getWindowBounds());
+    if(write1 == true)
+    {
+        setWindowSize(myImage.getWidth(), myImage.getHeight() );
+        gl::draw( myImage, getWindowBounds());
+        writeImage( getHomeDirectory() /"Documents"/"AstroSpiral"/"res"/"result1.png", copyWindowSurface() );
+        write1 = false;
+    }
+    
+    else
+    {
+        setWindowSize(myImage2.getWidth(), myImage2.getHeight() );
+        gl::draw( myImage2, getWindowBounds());
+        writeImage( getHomeDirectory() /"Documents"/"AstroSpiral"/"res"/"result2.png", copyWindowSurface() );
+    }
+    
+    if(mark.size() > 0)
+    {
+        gl::drawStrokedCircle( Vec2f( mark[0].x, mark[0].y ), 10.0f );
+        //cout<<"yup "<<endl;
+        //mark.erase(mark.begin());
+    }
+    //drawSolidCircle( Vec2f( xf, yf ), radiusf );
 }
 
 CINDER_APP_BASIC( ConvexSpiralApp, RendererGl );
