@@ -23,7 +23,6 @@ class ConvexSpiralApp : public AppBasic
     void main();
 
     gl::Texture myImage;
-    //gl::Texture myImage2;
 
 };
 
@@ -64,8 +63,6 @@ Surface::Iter AverageBrightness( Surface *surface, Area area )
     for (it=brightness.begin(); it!=brightness.end(); it++) sum = sum + *it;
     
     averageb = sum / brightness.size();
-    
-    cout<<"AVERAGEB = "<<averageb << endl;
     
     return iter;
 }
@@ -323,13 +320,10 @@ void findNext(int k)
 
 void MakeSpiral()
 {
-     findFirst();
-     findSecond();
+    findFirst();
+    findSecond();
          
-     for(int k = 1; k < points.size() - 3; k ++)
-     {
-         findNext(k);
-     }
+    for(int k = 1; k < points.size() - 3; k ++) findNext(k);
 }
 
 vector<point> mark;
@@ -341,7 +335,6 @@ void ConvexSpiralApp::setup()
     try
     {
         ci::fs::path img = getOpenFilePath( "", ImageIo::getLoadExtensions());
-        //ci::fs::path img2 = getOpenFilePath( "", ImageIo::getLoadExtensions());
         
         if( ! img.empty() ) // an empty string means the user canceled
         {
@@ -370,6 +363,7 @@ void ConvexSpiralApp::setup()
                 }
             }
             
+            
             vector <point> points1;
             
             for(int i = 0; i < points.size(); i++)
@@ -382,151 +376,7 @@ void ConvexSpiralApp::setup()
             Surface processedImage3( processImage2( loadImage( img ) ) );
             myImage = gl::Texture( processedImage3 );
             
-            /*points.clear(); pixels.clear();
-            
-            for(int i = 0; i < 10000; i++)
-                for(int j = 0; j < 10000; j++) gr[i][j] = 0;
-            
-            for(int i = 0; i < 10000; i++) used[i] = 0;
-            
-            br = 0;
-            
-            Surface processedImage2( processImage( loadImage( img2 ) ) );
-            myImage2 = gl::Texture( processedImage2 );
-            
-            for(int i=1; i<=br; i++)
-            {
-                if(used[i]==0)
-                {
-                    maxx=-1; minx=-1; maxy=-1; miny=-1;
-                    
-                    find_component(i);
-                    
-                    point newcenter;
-                    
-                    int centerx = minx+(maxx-minx)/2;
-                    int centery = miny+(maxy-miny)/2;
-                    
-                    newcenter.x=centerx;
-                    newcenter.y=centery;
-                    
-                    points.push_back(newcenter);
-                }
-            }
-            
-            int dif12, dif13, dif23;
-            
-            dif12 = sqrt( ((pnt2.x - pnt1.x) * (pnt2.x - pnt1.x)) - ((pnt2.y - pnt1.y) * (pnt2.y - pnt1.y)));
-            dif13 = sqrt( ((pnt3.x - pnt1.x) * (pnt3.x - pnt1.x)) - ((pnt3.y - pnt1.y) * (pnt3.y - pnt1.y)));
-            dif23 = sqrt( ((pnt2.x - pnt3.x) * (pnt2.x - pnt3.x)) - ((pnt2.y - pnt3.y) * (pnt2.y - pnt3.y)));
-            
-            int difij, difik, difjk; bool stop = false;
-            int differencex = 0, differencey = 0;
-            
-            for ( int  i = 0; i < points.size(); i ++)
-            {
-                for(int j = 0; j < points.size() ; j++)
-                {
-                    for(int k = 0; k < points.size() ; k++)
-                    {
-                        difij = sqrt((points[i].x - points[j].x) * (points[i].x - points[j].x) - (points[i].y - points[j].y) * (points[i].y - points[j].y));
-                        difik = sqrt((points[i].x - points[k].x) * (points[i].x - points[k].x) - (points[i].y - points[k].y) * (points[i].y - points[k].y));
-                        difjk = sqrt((points[j].x - points[k].x) * (points[j].x - points[k].x) - (points[j].y - points[k].y) * (points[j].y - points[k].y));
-                        
-                        if ( difij == dif12 && difik == dif23 && difjk == dif13)
-                        {
-                            differencex = points[i].x - pnt1.x;
-                            differencey = points[i].y - pnt1.y;
-                            
-                            stop = true;
-                            break;
-                        }
-                        else if ( difij == dif12 && difik == dif13 && difjk == dif23)
-                        {
-                            differencex = points[i].x - pnt1.x;
-                            differencey = points[i].y - pnt1.y;
-                            
-                            stop = true;
-                            break;
-                        }
-                        
-                        else if ( difij == dif23 && difik == dif12 && difjk == dif13)
-                        {
-                            differencex = points[i].x - pnt2.x;
-                            differencey = points[i].y - pnt2.y;
-                            
-                            stop = true;
-                            break;
-                        }
-                        else if ( difij == dif23 && difik == dif13 && difjk == dif12)
-                        {
-                            differencex = points[i].x - pnt2.x;
-                            differencey = points[i].y - pnt2.y;
-                            
-                            stop = true;
-                            break;
-                        }
-                        
-                        else if ( difij == dif13 && difik == dif23 && difjk == dif12)
-                        {
-                            differencex = points[i].x - pnt1.x;
-                            differencey = points[i].y - pnt1.y;
-                            
-                            stop = true;
-                            break;
-                        }
-                        else if ( difij == dif13 && difik == dif12 && difjk == dif23)
-                        {
-                            differencex = points[i].x - pnt1.x;
-                            differencey = points[i].y - pnt1.y;
-                            
-                            stop = true;
-                            break;
-                        }
-                    }
-                    
-                    if(stop == true) break;
-                }
-                
-                if(stop == true) break;
-            }*/
-            
-            /*vector<point> points2;
-            
-            for(int i = 0; i < points.size(); i++)
-                points2.push_back(points[i]);
-            
-            for(int i = 0; i < points1.size(); i++)
-            {
-                bool found = false;
-                for ( int  j = 0; j < points2.size(); j++)
-                {
-                    if ( points1[i].x == (points2[j].x - differencex) && points1[i].y == (points2[j].y - differencey))
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                
-                //if (found == false) mark.push_back(points1[i]);
-            }
-            
-            for(int i = 0; i < points2.size(); i++)
-            {
-                
-                bool found = false;
-                for ( int  j = 0; j < points1.size(); j++)
-                    if ( points2[i].x == (points1[j].x + differencex) && points2[i].y == (points1[j].y + differencey)) found = true;
-
-                //if (found == false) mark.push_back(points2[i]);
-            }*/
-            
-            //MakeSpiral();
-            
-            /*Surface processedImage4( processImage2( loadImage( img2 ) ) );
-            myImage2 = gl::Texture( processedImage4 );*/
         }
-        
     }
 
     catch( ... )
@@ -541,34 +391,6 @@ void ConvexSpiralApp::draw()
     setWindowSize(myImage.getWidth(), myImage.getHeight() );
     gl::draw( myImage, getWindowBounds());
     writeImage( getHomeDirectory() /"Documents"/"AstroSpiral"/"res"/"result1.png", copyWindowSurface() );
-
-    /*if(write1 == true)
-    {
-        setWindowSize(myImage.getWidth(), myImage.getHeight() );
-        gl::draw( myImage, getWindowBounds());
-        writeImage( getHomeDirectory() /"Documents"/"AstroSpiral"/"res"/"result1.png", copyWindowSurface() );
-        write1 = false;
-    }
-    else
-    {
-        setWindowSize(myImage2.getWidth(), myImage2.getHeight() );
-        gl::draw( myImage2, getWindowBounds());
-        writeImage( getHomeDirectory() /"Documents"/"AstroSpiral"/"res"/"result2.png", copyWindowSurface() );
-    }*/
-    
-    /*for(int i = 0; i < mark.size(); i++)
-        gl::drawStrokedCircle( Vec2f( mark[i].x, mark[i].y ), 5.0f );*/
-    
-   /*if(mark.size() > 0)
-   {
-       gl::drawStrokedCircle( Vec2f( mark[0].x, mark[0].y ), 10.0f );
-       gl::drawStrokedCircle( Vec2f( mark[1].x, mark[1].y ), 10.0f );
-   }*/
-    
-   /* for(int i = 0; i < circledif.size(); i ++)
-        gl::drawStrokedCircle( Vec2f( circledif[i].x, circledif[i].y ), 10.0f );*/
-    
-    //drawSolidCircle( Vec2f( xf, yf ), radiusf );
 }
 
 CINDER_APP_BASIC( ConvexSpiralApp, RendererGl );
