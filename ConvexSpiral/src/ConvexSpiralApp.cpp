@@ -262,6 +262,13 @@ int det(point a, point b, point c)
     return (dxa*dyb - dxb*dya);
 }
 
+bool oriant(point a, point b, point c)
+{
+    double tmp = det(a, b, c);
+    if(tmp >= 0) return 1;
+    else return 0;
+}
+
 void findFirst()
 {
     int maxind=0;
@@ -324,6 +331,11 @@ void MakeSpiral()
     findSecond();
          
     for(int k = 1; k < points.size() - 3; k ++) findNext(k);
+    
+    bool w = oriant (points[points.size() - 3], points[points.size() - 2], points[points.size() - 1]);
+    bool prevw = oriant (points[points.size() - 5], points[points.size() - 4], points[points.size() - 3]);
+
+    if((prevw == 1 && w == 0) || (prevw == 0 && w == 1)) swap(points[points.size() - 2], points[points.size() - 1]);
 }
 
 vector<point> mark;
