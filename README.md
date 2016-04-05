@@ -6,6 +6,8 @@ The Astro Spiral project presents an innovative way to compare astronomical imag
 
 How do astronomers find near-Earth asteroids (NEAs)? 
 
+In the night sky, we can see stars shining with their own light - but how do we know they are actually stars? 
+
 Below, you can see a background of "motionless" stars, which are too far from us to observe a difference in position. The asteroid BJ19377, on the other hand, is close enough, so we can see it moving in the sky.
 
 ![alt tag](http://iasc.hsutx.edu/images/astro.gif)
