@@ -1,6 +1,6 @@
 ## AstroSpiral
 
-The Astro Spiral project presents an innovative way to compare astronomical images of the sky by building a convex spiral (modification of the Graham Scan algorithm for convex hull) according to the bright objects in a photo. On that purpose, I made an application for Windows and Mac OS X, written in C++ that uses the Cinder toolbox.
+The Astro Spiral project presents an innovative way to compare astronomical images of the sky by building a convex spiral (using a modification of the Graham Scan algorithm for convex hull) according to the bright objects in a photo. On that purpose, an application for Windows and Mac OS X, written in C++, is developed using the Cinder toolbox.
 
 ### Introduction
 
