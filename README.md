@@ -10,7 +10,7 @@ In the night sky, we can see stars shining with their own light - but how do we 
 
 Below, you can see a background of stars, which are too far from us to observe a difference in position. The asteroid BJ19377, on the other hand, is close enough, so we can see it moving in the sky.
 
-We can distinguish the movement of asteroids by comparing consecutive astronomical images of the sky.
+We can detect the movement of asteroids by comparing consecutive astronomical images of the sky.
 
 ![alt tag](http://iasc.hsutx.edu/images/astro.gif)
 
