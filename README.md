@@ -18,5 +18,5 @@ Astronomers have studied the sky in the search of asteroids for nearly 200 years
 
 ![alt tag](https://i.ytimg.com/vi/fP8qTDIhYUE/maxresdefault.jpg)
 
-The goal of this project is to create a software that builds a convex spiral according to the bright objects in an astronomical image of the sky. Given a set of astronomical images, taken successively by the same telescope, we can, very intuitively, by looking, to find differences in their spirals and thus finding star-like moving objects, which are most likely to be asteroids.
+The goal of this project is to create a software that builds a convex spiral according to the bright objects in an astronomical image of the sky. Given a set of astronomical images, taken successively by the same telescope, we can, very intuitively, by looking, find differences in their spirals and thus finding star-like moving objects, which are most likely to be asteroids.
 
