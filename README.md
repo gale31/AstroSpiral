@@ -10,9 +10,9 @@ In the night sky, we can see stars shining with their own light - but how do we 
 
 Below, you can see a background of stars, which are too far from us to observe a difference in position. The asteroid BJ19377, on the other hand, is close enough, so we can see it moving in the sky.
 
-![alt tag](http://iasc.hsutx.edu/images/astro.gif)
-
 We can distinguish the movement of asteroids by comparing consecutive astronomical images of the sky.
+
+![alt tag](http://iasc.hsutx.edu/images/astro.gif)
 
 Astronomers have studied the sky in the search of asteroids for nearly 200 years, but they have not managed to find all the asteroids in our solar system yet. The search for asteroids is very important for the development of astronomy. Near-Earth asteroids are of great interest because of the resources of valuable materials which they posses. The danger of collision of the Earth with an asteroid passing close makes the search of asteroids useful to our society, too. Therefore, in recent years the study of asteroids is becoming extremely important as a warning of a possible dangerous collision, upcoming space landing missions and the research and development of asteroid resources.
 
