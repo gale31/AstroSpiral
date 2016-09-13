@@ -34,6 +34,6 @@ What about now?
 
 You found the small bright object on the bottom easier, didn't you? Well, that's the goal of this project.
 
-The thing connecting the bright objects on the image is a "convex spiral", which is made by modifiying the Graham Scan algorithm for convex hull.
+The thing connecting the bright objects on the image is a "convex spiral", which is made by modifiying the Graham Scan algorithm for convex hull. So, I wrote an application which recieves an astronomical image and, following the modified algorithm, draws a convex spiral on it.
 
 
