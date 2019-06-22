@@ -12,7 +12,7 @@ Below, you can see a background of stars, which are too far from us to observe a
 
 We can detect the movement of asteroids by comparing consecutive astronomical images of the sky.
 
-<img src= "http://iasc.hsutx.edu/images/astro.gif" width="600">
+<img src= "https://i.postimg.cc/PrZHhZcG/astro.gif" width="600">
 
 Astronomers have studied the sky in the search of asteroids for nearly 200 years, but they have not managed to find all the asteroids in our solar system yet. The search for asteroids is very important for the development of astronomy. Near-Earth asteroids are of great interest because of the resources of valuable materials which they posses. The danger of collision of the Earth with an asteroid passing close makes the search of asteroids useful to our society, too. Therefore, in recent years the study of asteroids is becoming extremely important as a warning of a possible dangerous collision, upcoming space landing missions and the research and development of asteroid resources.
 
@@ -24,16 +24,15 @@ The goal of this project is to create a software that builds a convex spiral acc
 
 Okay, look at those two images. Can you find a difference?
 
-<img src= "https://s10.postimg.org/wiaxqrvjt/IMAGE1.jpg" width="302">
-<img src= "https://s10.postimg.org/60kjrvyzd/IMAGE2.jpg" width="300">
+![](https://raw.githubusercontent.com/gale31/AstroSpiral/master/IMG/IMAGE1.jpg) ![](https://raw.githubusercontent.com/gale31/AstroSpiral/master/IMG/IMAGE2.jpg)
 
 What about now?
 
-<img src= "https://s10.postimg.org/8hbwumwux/RESULT1.png" width="302">
-<img src= "https://s17.postimg.org/xm43vnyov/RESULT2.png" width="300">
+![](https://raw.githubusercontent.com/gale31/AstroSpiral/master/IMG/RESULT1.png) ![](https://raw.githubusercontent.com/gale31/AstroSpiral/master/IMG/RESULT2.png)
 
 You found the small bright object on the bottom easier, didn't you? Well, that's the goal of this project.
 
-The thing connecting the bright objects on the image is a "convex spiral", which is made by modifiying the Graham Scan algorithm for convex hull. So, I wrote an application which recieves an astronomical image and, following the modified algorithm, draws a convex spiral on it.
+The thing connecting the bright objects on the image is a "convex spiral", which is made by modifiying the Graham Scan algorithm for convex hull. I wrote an application which recieves an astronomical image and, following the modified algorithm, draws a convex spiral on it.
 
+<img src= "https://i.postimg.cc/15c9wwKG/final-2.png" width="600">
 
